@@ -1,19 +1,45 @@
 pipeline {
+
     agent any
 
     stages {
 
-        stage('Build') {
+        stage('Clean') {
             steps {
-                sh 'gcc hello_world.c -o hello'
+                sh 'rm -f student student.tar'
             }
         }
 
-        stage('Run') {
+        stage('Build') {
             steps {
-                sh './hello'
+                sh 'gcc student.c -o student'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh './student'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'tar -cvf student.tar student'
             }
         }
 
     }
+
+    post {
+
+        success {
+            echo 'Pipeline completed successfully'
+        }
+
+        failure {
+            echo 'Pipeline failed'
+        }
+
+    }
+
 }
