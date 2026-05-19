@@ -1,6 +1,6 @@
 #include<stdio.h>
 int main()
 {
-printf("hello world\n");
+printf("automatic CI trigger");
 return 0;
 }
