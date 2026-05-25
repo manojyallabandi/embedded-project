@@ -6,25 +6,31 @@ pipeline {
 
         stage('Clean') {
             steps {
-                sh 'rm -f student student.tar'
+                sh 'rm -f math math.tar'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'gcc student.c -o student'
+                sh 'gcc math.c -o math'
             }
         }
 
         stage('Test') {
             steps {
-                sh './student'
+                sh './math'
             }
         }
 
         stage('Package') {
             steps {
-                sh 'tar -cvf student.tar student'
+                sh 'tar -cvf math.tar math'
+            }
+        }
+
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'math.tar'
             }
         }
 
